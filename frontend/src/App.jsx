@@ -30,7 +30,7 @@ function AppContent() {
   return (
     <div className="flex h-screen w-full bg-[#050816] text-white font-sans overflow-hidden relative">
       {/* Dynamic Futuristic WebGL Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
         <Grainient
           color1="#00D9FF"
           color2="#EF4444"

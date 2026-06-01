@@ -191,7 +191,7 @@ export default function Orders() {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-8 space-y-8 bg-[#050816]">
+    <div className="flex-1 overflow-y-auto p-8 space-y-8 bg-transparent">
       {/* Header section */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>

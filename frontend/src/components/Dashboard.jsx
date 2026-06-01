@@ -107,7 +107,7 @@ export default function Dashboard({ setActiveTab }) {
   ];
 
   return (
-    <div className="flex-1 overflow-y-auto p-8 space-y-8 bg-[#050816]">
+    <div className="flex-1 overflow-y-auto p-8 space-y-8 bg-transparent">
       {/* Top Banner */}
       <div className="flex justify-between items-center">
         <div>
