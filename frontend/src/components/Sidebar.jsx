@@ -5,7 +5,6 @@ import {
   Package, 
   Users, 
   ShoppingCart, 
-  LogOut, 
   User,
   LayoutGrid
 } from 'lucide-react';
@@ -61,7 +60,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         </nav>
       </div>
 
-      {/* User Area & Logout */}
+      {/* User Area */}
       <div className="space-y-4 pt-6 border-t border-white/5">
         {user && (
           <div className="flex items-center gap-3 px-2">
@@ -81,14 +80,6 @@ export default function Sidebar({ activeTab, setActiveTab }) {
             </div>
           </div>
         )}
-
-        <button
-          onClick={logout}
-          className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold text-red-400 hover:text-red-300 hover:bg-red-500/5 transition-all border-l-2 border-transparent"
-        >
-          <LogOut className="w-4.5 h-4.5" />
-          <span>Logout</span>
-        </button>
       </div>
     </aside>
   );

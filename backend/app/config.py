@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     JWT_SECRET: str = Field(default="supersecret_inventra_jwt_key_change_in_production_12345")
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
-    REQUIRE_AUTH: bool = True
+    REQUIRE_AUTH: bool = False
     GOOGLE_CLIENT_ID: str = ""
 
     # Load configuration from environment variables or .env file
