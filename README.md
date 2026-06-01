@@ -2,6 +2,12 @@
 
 Inventra is a production-ready, containerized, full-stack Inventory & Order Management System. It features a dark futuristic SaaS dashboard UI inspired by Linear/Stripe/Vercel and a robust transactional backend API.
 
+## 🌐 Live Deployments
+* **Production Frontend (Vercel)**: [https://inventra-lake.vercel.app](https://inventra-lake.vercel.app)
+* **API Backend (Render)**: [https://inventra-backend-xaqk.onrender.com](https://inventra-backend-xaqk.onrender.com)
+* **Interactive Swagger Docs**: [https://inventra-backend-xaqk.onrender.com/docs](https://inventra-backend-xaqk.onrender.com/docs)
+* **GitHub Repository**: [https://github.com/shubh-kr007/inventra](https://github.com/shubh-kr007/inventra)
+
 ## 🚀 Key Features
 - **Product Management**: Complete SKU inventory catalogs, pricing matrices, and live stock tracking.
 - **Customer Directory**: Secure registry for buyer profiles, email coordinates, and contact details.

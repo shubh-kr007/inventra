@@ -213,7 +213,7 @@ export default function Products() {
                     <tr key={p.id} className="hover:bg-white/2 transition duration-150">
                       <td className="px-6 py-4 font-bold text-white">{p.name}</td>
                       <td className="px-6 py-4 text-sm font-mono text-indigo-300">{p.sku}</td>
-                      <td className="px-6 py-4 text-sm font-semibold">${parseFloat(p.price).toFixed(2)}</td>
+                      <td className="px-6 py-4 text-sm font-semibold">₹{parseFloat(p.price).toFixed(2)}</td>
                       <td className="px-6 py-4 text-sm font-bold">{p.quantity}</td>
                       <td className="px-6 py-4">
                         <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${statusClass} uppercase tracking-wider`}>
@@ -329,7 +329,7 @@ export default function Products() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-inventra-muted uppercase tracking-wider">Price (USD)</label>
+                    <label className="text-xs font-bold text-inventra-muted uppercase tracking-wider">Price (Rs.)</label>
                     <input
                       type="number"
                       step="0.01"

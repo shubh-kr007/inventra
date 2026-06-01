@@ -235,7 +235,7 @@ export default function Orders() {
                   <tr key={o.id} className="hover:bg-white/2 transition duration-150">
                     <td className="px-6 py-4 text-sm font-mono font-bold text-[#00D9FF]">#INV-{o.id.toString().padStart(5, '0')}</td>
                     <td className="px-6 py-4 font-semibold text-white">{o.customer?.full_name}</td>
-                    <td className="px-6 py-4 text-sm font-bold text-emerald-400">${parseFloat(o.total_amount).toFixed(2)}</td>
+                    <td className="px-6 py-4 text-sm font-bold text-emerald-400">₹{parseFloat(o.total_amount).toFixed(2)}</td>
                     <td className="px-6 py-4 text-sm text-inventra-muted">
                       {new Date(o.created_at).toLocaleString()}
                     </td>
@@ -355,10 +355,10 @@ export default function Orders() {
                         <tr key={item.id}>
                           <td className="px-4 py-3 font-mono text-xs text-indigo-300">{item.product_sku}</td>
                           <td className="px-4 py-3 font-semibold text-white">{item.product_name}</td>
-                          <td className="px-4 py-3 text-right">${parseFloat(item.unit_price).toFixed(2)}</td>
+                          <td className="px-4 py-3 text-right">₹{parseFloat(item.unit_price).toFixed(2)}</td>
                           <td className="px-4 py-3 text-center font-bold">{item.quantity}</td>
                           <td className="px-4 py-3 text-right font-bold text-white">
-                            ${(parseFloat(item.unit_price) * item.quantity).toFixed(2)}
+                            ₹{(parseFloat(item.unit_price) * item.quantity).toFixed(2)}
                           </td>
                         </tr>
                       ))}
@@ -371,7 +371,7 @@ export default function Orders() {
               <div className="flex justify-between items-center mt-6 pt-5 border-t border-white/8">
                 <span className="text-sm font-bold text-inventra-muted uppercase tracking-wider">Total Invoice Price</span>
                 <span className="text-2xl font-black text-emerald-400">
-                  ${parseFloat(selectedOrder.total_amount).toFixed(2)}
+                  ₹{parseFloat(selectedOrder.total_amount).toFixed(2)}
                 </span>
               </div>
             </motion.div>
@@ -463,7 +463,7 @@ export default function Orders() {
                               <option value="">-- Select Product --</option>
                               {products.map(p => (
                                 <option key={p.id} value={p.id} disabled={p.quantity === 0}>
-                                  {p.name} - ${parseFloat(p.price).toFixed(2)} ({p.quantity} in stock) {p.quantity === 0 ? '[OUT OF STOCK]' : ''}
+                                  {p.name} - ₹{parseFloat(p.price).toFixed(2)} ({p.quantity} in stock) {p.quantity === 0 ? '[OUT OF STOCK]' : ''}
                                 </option>
                               ))}
                             </select>
@@ -485,8 +485,8 @@ export default function Orders() {
                           {/* Line Subtotal */}
                           <div className="w-20 text-right text-xs font-bold text-indigo-300">
                             {selectedProduct 
-                              ? `$${(selectedProduct.price * (parseInt(item.quantity) || 0)).toFixed(2)}`
-                              : '$0.00'
+                              ? `₹${(selectedProduct.price * (parseInt(item.quantity) || 0)).toFixed(2)}`
+                              : '₹0.00'
                             }
                           </div>
 
@@ -510,7 +510,7 @@ export default function Orders() {
                   <div className="flex justify-between items-center">
                     <span className="text-xs font-bold text-inventra-muted uppercase tracking-wider">Dynamic Total</span>
                     <span className="text-xl font-black text-emerald-400">
-                      ${calculateTotal().toFixed(2)}
+                      ₹{calculateTotal().toFixed(2)}
                     </span>
                   </div>
 
