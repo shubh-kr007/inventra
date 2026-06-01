@@ -20,7 +20,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
   ];
 
   return (
-    <aside className="w-64 h-screen border-r border-white/5 bg-[#050816] flex flex-col justify-between p-6 shrink-0 z-20">
+    <aside className="w-64 h-screen border-r border-white/5 bg-transparent flex flex-col justify-between p-6 shrink-0 z-20">
       <div className="space-y-8">
         {/* App Logo */}
         <div className="flex items-center gap-3">
