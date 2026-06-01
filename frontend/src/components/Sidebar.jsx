@@ -5,8 +5,7 @@ import {
   Package, 
   Users, 
   ShoppingCart, 
-  User,
-  LayoutGrid
+  User
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab }) {
@@ -24,9 +23,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
       <div className="space-y-8">
         {/* App Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-tr from-[#00D9FF] to-indigo-600 rounded-lg flex items-center justify-center shadow-glow">
-            <LayoutGrid className="w-4.5 h-4.5 text-white" />
-          </div>
+          <img src="/favicon.svg" className="w-8 h-8 object-contain filter drop-shadow-[0_0_6px_rgba(0,217,255,0.3)] animate-pulse" alt="Inventra Logo" />
           <div>
             <h2 className="text-lg font-extrabold font-sans tracking-wide text-white">
               INVENTRA
