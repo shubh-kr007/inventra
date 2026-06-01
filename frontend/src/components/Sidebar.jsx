@@ -30,7 +30,7 @@ export default function Sidebar({ activeTab, setActiveTab, isMobileOpen, setIsMo
       )}
 
       <aside className={`
-        fixed inset-y-0 left-0 z-40 bg-[#050816]/98 border-r border-white/5 flex flex-col justify-between p-6 transition-transform duration-300 transform shrink-0
+        fixed inset-y-0 left-0 z-40 bg-[#050816] border-r border-white/5 flex flex-col justify-between p-6 transition-transform duration-300 transform shrink-0
         ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
         md:relative md:translate-x-0 md:bg-transparent
         w-64 md:w-20 lg:w-64
