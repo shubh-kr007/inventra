@@ -5,7 +5,6 @@ from .database import engine, Base
 from .routers import auth, products, customers, orders, dashboard
 from .config import settings
 
-# Automatically create all tables on server startup (no manual db migrations needed)
 try:
     Base.metadata.create_all(bind=engine)
 except Exception as e:
@@ -15,7 +14,6 @@ except Exception as e:
     print(f"\n[!] WARNING: PostgreSQL connection failed: {e}", file=sys.stderr)
     print("[!] Falling back to local SQLite database: sqlite:///./inventra.db\n", file=sys.stderr)
     
-    # Re-configure engine and SessionLocal to use SQLite
     database.engine = create_engine(
         "sqlite:///./inventra.db", 
         connect_args={"check_same_thread": False}
@@ -31,7 +29,6 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Configure CORS for frontend access
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], # In production, lock this down to specific domains (e.g. Vercel)
@@ -40,7 +37,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register routers under /api
 app.include_router(auth.router, prefix="/api")
 app.include_router(products.router, prefix="/api")
 app.include_router(customers.router, prefix="/api")
@@ -49,7 +45,6 @@ app.include_router(dashboard.router, prefix="/api")
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
-    # Log the exception stack in real scenarios
     return JSONResponse(
         status_code=500,
         content={"detail": f"An unexpected error occurred: {str(exc)}"}

@@ -2,7 +2,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from .config import settings
 
-# Translate connection string to use psycopg 3 driver
 db_url = settings.DATABASE_URL
 if db_url.startswith("postgresql://"):
     db_url = db_url.replace("postgresql://", "postgresql+psycopg://", 1)

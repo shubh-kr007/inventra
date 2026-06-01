@@ -12,7 +12,6 @@ def create_product(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(auth.get_current_user)
 ):
-    # Check for SKU uniqueness
     db_product = crud.get_product_by_sku(db, sku=product.sku)
     if db_product:
         raise HTTPException(
@@ -49,7 +48,6 @@ def update_product(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(auth.get_current_user)
 ):
-    # Validate SKU uniqueness if SKU is being updated
     if product.sku:
         db_product_by_sku = crud.get_product_by_sku(db, sku=product.sku)
         if db_product_by_sku and db_product_by_sku.id != product_id:

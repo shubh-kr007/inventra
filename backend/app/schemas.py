@@ -2,7 +2,6 @@ import datetime
 from pydantic import BaseModel, Field, EmailStr
 from typing import List, Optional
 
-# --- User & Auth Schemas ---
 
 class UserBase(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
@@ -29,7 +28,6 @@ class TokenData(BaseModel):
 class GoogleLoginRequest(BaseModel):
     credential: str
 
-# --- Product Schemas ---
 
 class ProductBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
@@ -53,7 +51,6 @@ class ProductResponse(ProductBase):
     class Config:
         from_attributes = True
 
-# --- Customer Schemas ---
 
 class CustomerBase(BaseModel):
     full_name: str = Field(..., min_length=1, max_length=100)
@@ -70,7 +67,6 @@ class CustomerResponse(CustomerBase):
     class Config:
         from_attributes = True
 
-# --- Order Item Schemas ---
 
 class OrderItemCreate(BaseModel):
     product_id: int
@@ -87,7 +83,6 @@ class OrderItemResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# --- Order Schemas ---
 
 class OrderCreate(BaseModel):
     customer_id: int
@@ -104,7 +99,6 @@ class OrderResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# --- Dashboard Stats Schemas ---
 
 class DashboardStats(BaseModel):
     total_products: int

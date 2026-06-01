@@ -12,7 +12,6 @@ def create_customer(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(auth.get_current_user)
 ):
-    # Validate email uniqueness
     db_customer = crud.get_customer_by_email(db, email=customer.email)
     if db_customer:
         raise HTTPException(

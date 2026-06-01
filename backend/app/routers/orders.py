@@ -12,7 +12,6 @@ def create_order(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(auth.get_current_user)
 ):
-    # crud.create_order handles stock checks, reductions, calculations, and rollbacks on exception.
     return crud.create_order(db=db, order_data=order)
 
 @router.get("", response_model=List[schemas.OrderResponse])

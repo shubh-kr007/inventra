@@ -10,14 +10,12 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 @router.post("/register", response_model=schemas.UserResponse, status_code=status.HTTP_201_CREATED)
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    # Check if username exists
     db_user = crud.get_user_by_username(db, username=user.username)
     if db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Username already registered"
         )
-    # Check if email exists
     db_email = crud.get_user_by_email(db, email=user.email)
     if db_email:
         raise HTTPException(
@@ -28,7 +26,6 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=schemas.Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    # Authenticate user
     user = crud.get_user_by_username(db, username=form_data.username)
     if not user or not user.hashed_password or not auth.verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
@@ -44,7 +41,6 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 async def google_login(payload: schemas.GoogleLoginRequest, db: Session = Depends(get_db)):
     token = payload.credential
     
-    # 1. Verify Google token via Google OAuth2 TokenInfo API
     try:
         async with httpx.AsyncClient() as client:
             response = await client.get(
@@ -66,7 +62,6 @@ async def google_login(payload: schemas.GoogleLoginRequest, db: Session = Depend
             detail=f"Failed to reach Google verification server: {str(e)}"
         )
         
-    # Optional: Verify Client ID if configured
     if settings.GOOGLE_CLIENT_ID and token_info.get("aud") != settings.GOOGLE_CLIENT_ID:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -83,32 +78,24 @@ async def google_login(payload: schemas.GoogleLoginRequest, db: Session = Depend
             detail="Google account did not return an email address."
         )
         
-    # Check if user already exists
     user = crud.get_user_by_email(db, email=email)
     
     if not user:
-        # Create username based on name or email prefix
         base_username = email.split("@")[0].replace(".", "_")
         username = base_username
         
-        # Ensure username uniqueness
         counter = 1
         while crud.get_user_by_username(db, username=username):
             username = f"{base_username}_{counter}"
             counter += 1
             
-        # Create Google account
         user = crud.create_google_user(db=db, username=username, email=email)
     else:
-        # If user exists but registered local, we can allow logging in, 
-        # but let's make sure it's linked
         if user.auth_provider == "local":
-            # Upgrade provider or just let it pass
             user.auth_provider = "google"
             db.commit()
             db.refresh(user)
 
-    # Generate internal access token
     access_token = auth.create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 

@@ -14,7 +14,6 @@ def get_dashboard_stats(
     total_customers = db.query(models.Customer).count()
     total_orders = db.query(models.Order).count()
     
-    # Low stock threshold is defined as quantity <= 10
     low_stock_products = db.query(models.Product).filter(models.Product.quantity <= 10).all()
     low_stock_count = len(low_stock_products)
     

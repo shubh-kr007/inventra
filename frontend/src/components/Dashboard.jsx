@@ -64,7 +64,6 @@ export default function Dashboard({ setActiveTab }) {
     );
   }
 
-  // Prep chart data
   const chartData = stats?.low_stock_products?.map(p => ({
     name: p.name.length > 10 ? `${p.name.substring(0, 10)}...` : p.name,
     stock: p.quantity,

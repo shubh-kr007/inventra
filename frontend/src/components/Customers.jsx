@@ -20,7 +20,6 @@ export default function Customers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Modal states
   const [isOpen, setIsOpen] = useState(false);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,7 +27,6 @@ export default function Customers() {
   const [submitting, setSubmitting] = useState(false);
   const [modalError, setModalError] = useState(null);
 
-  // Search filter
   const [search, setSearch] = useState('');
 
   const fetchCustomers = async () => {
@@ -63,11 +61,9 @@ export default function Customers() {
     e.preventDefault();
     setModalError(null);
 
-    // Front-end Validations
     if (!fullName.trim()) return setModalError('Full Name is required.');
     if (!email.trim()) return setModalError('Email Address is required.');
     
-    // Quick regex email check
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) return setModalError('Please supply a valid email address.');
 
@@ -116,7 +112,6 @@ export default function Customers() {
     }
   };
 
-  // Filter customers by search query
   const filteredCustomers = customers.filter(c => 
     c.full_name.toLowerCase().includes(search.toLowerCase()) || 
     c.email.toLowerCase().includes(search.toLowerCase())

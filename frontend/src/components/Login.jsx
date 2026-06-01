@@ -50,7 +50,6 @@ export default function Login() {
       }
     };
 
-    // Retry initialization in case script loads slowly
     const timer = setTimeout(initGoogleBtn, 800);
     return () => clearTimeout(timer);
   }, [googleClientId, googleLogin, isLogin]);
@@ -81,7 +80,6 @@ export default function Login() {
         await register(username, email, password);
       }
     } catch (err) {
-      // AuthContext sets error state which is displayable
       setLocalError(err.message);
     } finally {
       setFormLoading(false);

@@ -18,7 +18,6 @@ export default function Products() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // Modal states
   const [isOpen, setIsOpen] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
   const [name, setName] = useState('');
@@ -28,7 +27,6 @@ export default function Products() {
   const [submitting, setSubmitting] = useState(false);
   const [modalError, setModalError] = useState(null);
 
-  // Search and filter
   const [search, setSearch] = useState('');
 
   const fetchProducts = async () => {
@@ -75,7 +73,6 @@ export default function Products() {
     e.preventDefault();
     setModalError(null);
 
-    // Frontend validations
     if (!name.trim()) return setModalError('Product Name is required.');
     if (!sku.trim()) return setModalError('SKU/Code is required.');
     const parsedPrice = parseFloat(price);
@@ -134,7 +131,6 @@ export default function Products() {
     }
   };
 
-  // Filter products by search query
   const filteredProducts = products.filter(p => 
     p.name.toLowerCase().includes(search.toLowerCase()) || 
     p.sku.toLowerCase().includes(search.toLowerCase())
@@ -203,7 +199,6 @@ export default function Products() {
               </thead>
               <tbody className="divide-y divide-white/5">
                 {filteredProducts.map((p) => {
-                  // Determine stock status styling
                   let statusText = 'In Stock';
                   let statusClass = 'bg-emerald-500/10 border-emerald-500/20 text-[#22C55E]';
                   if (p.quantity === 0) {

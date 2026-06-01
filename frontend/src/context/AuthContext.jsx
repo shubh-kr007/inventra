@@ -5,7 +5,6 @@ const AuthContext = createContext(null);
 export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export const AuthProvider = ({ children }) => {
-  // Directly set the authenticated user profile to bypass the login screen
   const [user] = useState({
     username: 'admin',
     email: 'admin@inventra.com',

@@ -2,7 +2,6 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from . import models, schemas, auth
 
-# --- User CRUD ---
 
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
@@ -38,7 +37,6 @@ def create_google_user(db: Session, username: str, email: str):
     db.refresh(db_user)
     return db_user
 
-# --- Product CRUD ---
 
 def get_products(db: Session):
     return db.query(models.Product).order_by(models.Product.created_at.desc()).all()
@@ -77,7 +75,6 @@ def delete_product(db: Session, product_id: int):
     db.commit()
     return True
 
-# --- Customer CRUD ---
 
 def get_customers(db: Session):
     return db.query(models.Customer).order_by(models.Customer.created_at.desc()).all()
@@ -103,7 +100,6 @@ def delete_customer(db: Session, customer_id: int):
     db.commit()
     return True
 
-# --- Order CRUD ---
 
 def get_orders(db: Session):
     return db.query(models.Order).order_by(models.Order.created_at.desc()).all()
@@ -112,7 +108,6 @@ def get_order(db: Session, order_id: int):
     return db.query(models.Order).filter(models.Order.id == order_id).first()
 
 def create_order(db: Session, order_data: schemas.OrderCreate):
-    # Verify customer exists
     customer = get_customer(db, order_data.customer_id)
     if not customer:
         raise HTTPException(
@@ -129,7 +124,6 @@ def create_order(db: Session, order_data: schemas.OrderCreate):
 
     total_amount = 0.00
     
-    # Process order items and update inventory
     for item in order_data.items:
         product = get_product(db, item.product_id)
         if not product:
@@ -146,14 +140,11 @@ def create_order(db: Session, order_data: schemas.OrderCreate):
                 detail=f"Insufficient stock for product '{product.name}' (SKU: {product.sku}). Available: {product.quantity}, Requested: {item.quantity}."
             )
             
-        # Deduct stock
         product.quantity -= item.quantity
         
-        # Calculate pricing
         item_total = float(product.price) * item.quantity
         total_amount += item_total
         
-        # Create order item record
         db_item = models.OrderItem(
             order_id=db_order.id,
             product_id=product.id,
@@ -174,7 +165,6 @@ def delete_order(db: Session, order_id: int):
     if not db_order:
         return False
         
-    # Restore stock to products
     for item in db_order.items:
         if item.product_id:
             product = get_product(db, item.product_id)

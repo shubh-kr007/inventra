@@ -17,21 +17,17 @@ import {
 export default function Orders() {
   const { token } = useAuth();
   
-  // Data lists
   const [orders, setOrders] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [products, setProducts] = useState([]);
   
-  // Loading & error
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Modals state
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
-  // New order fields
   const [customerId, setCustomerId] = useState('');
   const [items, setItems] = useState([{ product_id: '', quantity: 1 }]);
   const [submitting, setSubmitting] = useState(false);
@@ -107,7 +103,6 @@ export default function Orders() {
     setItems(newItems);
   };
 
-  // Calculate live order total for UI feedback
   const calculateTotal = () => {
     return items.reduce((sum, item) => {
       if (!item.product_id) return sum;
@@ -121,10 +116,8 @@ export default function Orders() {
     e.preventDefault();
     setModalError(null);
 
-    // Front-end Validations
     if (!customerId) return setModalError('Please select a customer for this order.');
     
-    // Check if items are valid
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       if (!item.product_id) {
@@ -136,7 +129,6 @@ export default function Orders() {
         return setModalError(`Quantity must be greater than 0 on line item ${i + 1}.`);
       }
 
-      // Check stock limits on frontend
       const product = products.find(p => p.id === parseInt(item.product_id));
       if (product && product.quantity < qty) {
         return setModalError(`Insufficient stock for product '${product.name}'. Available: ${product.quantity}, Requested: ${qty}.`);

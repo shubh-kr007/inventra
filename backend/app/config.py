@@ -10,7 +10,6 @@ class Settings(BaseSettings):
     REQUIRE_AUTH: bool = False
     GOOGLE_CLIENT_ID: str = ""
 
-    # Load configuration from environment variables or .env file
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
