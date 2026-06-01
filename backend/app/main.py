@@ -6,7 +6,22 @@ from .routers import auth, products, customers, orders, dashboard
 from .config import settings
 
 # Automatically create all tables on server startup (no manual db migrations needed)
-Base.metadata.create_all(bind=engine)
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    import sys
+    from sqlalchemy import create_engine
+    from . import database
+    print(f"\n[!] WARNING: PostgreSQL connection failed: {e}", file=sys.stderr)
+    print("[!] Falling back to local SQLite database: sqlite:///./inventra.db\n", file=sys.stderr)
+    
+    # Re-configure engine and SessionLocal to use SQLite
+    database.engine = create_engine(
+        "sqlite:///./inventra.db", 
+        connect_args={"check_same_thread": False}
+    )
+    database.SessionLocal.configure(bind=database.engine)
+    Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(
     title="Inventra API",
