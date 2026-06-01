@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import Products from './components/Products';
 import Customers from './components/Customers';
 import Orders from './components/Orders';
+import Grainient from './components/Grainient';
 
 function AppContent() {
   const { user, loading } = useAuth();
@@ -27,12 +28,25 @@ function AppContent() {
   }
 
   return (
-    <div className="flex h-screen w-full bg-[#050816] text-white font-sans overflow-hidden">
+    <div className="flex h-screen w-full bg-[#050816] text-white font-sans overflow-hidden relative">
+      {/* Dynamic Futuristic WebGL Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+        <Grainient
+          color1="#00D9FF"
+          color2="#EF4444"
+          color3="#050816"
+          timeSpeed={0.12}
+          zoom={1.2}
+          grainAmount={0.06}
+          warpStrength={0.8}
+        />
+      </div>
+
       {/* Navigation sidebar */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main content viewport */}
-      <main className="flex-1 h-full flex flex-col overflow-hidden relative">
+      <main className="flex-1 h-full flex flex-col overflow-hidden relative z-10 bg-transparent">
         {/* Subtle decorative top gradients */}
         <div className="absolute top-0 right-0 w-[400px] h-[200px] bg-indigo-500/5 blur-[80px] pointer-events-none" />
         <div className="absolute top-10 left-10 w-[300px] h-[150px] bg-cyan-500/3 blur-[70px] pointer-events-none" />
